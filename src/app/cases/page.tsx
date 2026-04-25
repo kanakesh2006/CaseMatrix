@@ -79,12 +79,18 @@ export default function CasesPage() {
                 <td className="px-4 py-3">
                   <span
                     className="inline-flex rounded-full px-3 py-1 text-xs font-semibold text-white"
-                    style={{ backgroundColor: statusColors[c.status].bg }}
+                    style={{ backgroundColor: statusColors[c.status]?.bg || '#6B7280' }}
                   >
-                    {c.status}
+                    {c.status || 'Unknown'}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-gray-500">{c.date}</td>
+                <td className="px-4 py-3 text-gray-500">
+                  {new Date(c.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                  })}
+                </td>
               </tr>
             ))}
           </tbody>

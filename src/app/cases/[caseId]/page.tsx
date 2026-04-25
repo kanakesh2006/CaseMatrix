@@ -14,7 +14,8 @@ type CaseDetail = {
   date: string;
 };
 
-export default function CaseDetailPage({ params }: { params: { caseId: string } }) {
+export default function CaseDetailPage({ params }: { params: Promise<{ caseId: string }> }) {
+  const { caseId } = React.use(params);
   const [caseData, setCaseData] = useState<CaseDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +29,7 @@ export default function CaseDetailPage({ params }: { params: { caseId: string } 
   useEffect(() => {
     const fetchCase = async () => {
       try {
-        const res = await fetch(`/api/cases/${params.caseId}`);
+        const res = await fetch(`/api/cases/${caseId}`);
         if (!res.ok) {
           throw new Error('Failed to fetch case details');
         }
@@ -43,7 +44,7 @@ export default function CaseDetailPage({ params }: { params: { caseId: string } 
       }
     };
     fetchCase();
-  }, [params.caseId]);
+  }, [caseId]);
 
   if (loading) {
     return <div className="container-responsive py-6">Loading case details...</div>;

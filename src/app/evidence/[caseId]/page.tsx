@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import EvidenceForm from '@/components/forms/EvidenceForm';
 
 type EvidenceItem = { id: string; name: string; type: string };
 
-export default function EvidencePage({ params }: { params: { caseId: string } }) {
+export default function EvidencePage({ params }: { params: Promise<{ caseId: string }> }) {
+  const { caseId } = React.use(params);
   const [evidence, setEvidence] = useState<EvidenceItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -13,7 +14,7 @@ export default function EvidencePage({ params }: { params: { caseId: string } })
   useEffect(() => {
     const fetchEvidence = async () => {
       try {
-        const res = await fetch(`/api/evidence?caseId=${params.caseId}`);
+        const res = await fetch(`/api/evidence?caseId=${caseId}`);
         if (!res.ok) {
           throw new Error('Failed to fetch evidence');
         }
@@ -28,7 +29,7 @@ export default function EvidencePage({ params }: { params: { caseId: string } })
       }
     };
     fetchEvidence();
-  }, [params.caseId]);
+  }, [caseId]);
 
   if (loading) {
     return <div className="container-responsive py-6">Loading evidence...</div>;
@@ -39,9 +40,9 @@ export default function EvidencePage({ params }: { params: { caseId: string } })
 
   return (
     <div className="container-responsive py-6">
-      <h1 className="mb-4 text-2xl font-extrabold text-[#6A1B9A]">Evidence for Case #{params.caseId}</h1>
+      <h1 className="mb-4 text-2xl font-extrabold text-[#6A1B9A]">Evidence for Case #{caseId}</h1>
       <div className="mb-8">
-        <EvidenceForm caseId={params.caseId} />
+        <EvidenceForm caseId={caseId} />
       </div>
       {evidence.length > 0 ? (
         <div className="mt-6">

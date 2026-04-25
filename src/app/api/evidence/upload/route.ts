@@ -23,12 +23,17 @@ export const POST = async (req: NextRequest) => {
   const type = data.get('type') as string;
   const caseId = data.get('caseId') as string;
 
+  let evidenceType = await prisma.evidenceType.findFirst({ where: { name: type } });
+  if (!evidenceType) {
+      evidenceType = await prisma.evidenceType.create({ data: { name: type || 'Unknown' } });
+  }
+
   try {
     const evidence = await prisma.evidence.create({
       data: {
         name,
-        type,
-        case: { connect: { id: caseId } },
+        typeId: evidenceType.id,
+        caseId,
         uploaded: new Date(),
         // You might want to store the file path or URL in the database
         // filePath: `/uploads/${file.name}`,

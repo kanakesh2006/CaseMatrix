@@ -1,16 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import WitnessForm from '@/components/forms/WitnessForm';
 
 interface WitnessesPageProps {
-  params: { caseId: string };
+  params: Promise<{ caseId: string }>;
 }
 
 type Witness = { id: string; name: string; statement: string };
 
 export default function WitnessesPage({ params }: WitnessesPageProps) {
-  const { caseId } = params;
+  const { caseId } = React.use(params);
   const [witnesses, setWitnesses] = useState<Witness[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -45,7 +45,7 @@ export default function WitnessesPage({ params }: WitnessesPageProps) {
 
   return (
     <div className="container-responsive py-6">
-      <h1 className="mb-4 text-2xl font-extrabold text-[#F59E42]">Witnesses for Case #{caseId}</h1>
+      <h1 className="mb-4 text-2xl font-extrabold text-zinc-900">Witnesses for Case #{caseId}</h1>
       <div className="mb-8">
         <WitnessForm caseId={caseId} onWitnessAdded={fetchWitnesses} />
       </div>

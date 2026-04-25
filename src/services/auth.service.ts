@@ -12,7 +12,7 @@ export const AuthService = {
         email,
         passwordHash: password, // In a real app, you should hash the password
         role,
-        specialization,
+        ...(specialization ? { lawyer: { create: { specialization } } } : {}),
       },
     });
 

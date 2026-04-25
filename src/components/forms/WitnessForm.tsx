@@ -60,7 +60,7 @@ const WitnessForm: React.FC<WitnessFormProps> = ({ caseId, onWitnessAdded }) => 
         />
       )}
       <form onSubmit={handleSubmit} className="rounded-xl bg-white p-6 shadow ring-1 ring-gray-100">
-        <h2 className="mb-4 text-lg font-semibold text-[#F59E42]">Add Witness</h2>
+        <h2 className="mb-4 text-lg font-semibold text-blue-600">Add Witness</h2>
         <Input
           type="text"
           name="name"
@@ -78,13 +78,13 @@ const WitnessForm: React.FC<WitnessFormProps> = ({ caseId, onWitnessAdded }) => 
             value={formData.statement}
             onChange={handleChange}
             rows={4}
-            className="w-full rounded-md border border-gray-300 bg-white px-3 py-3 text-sm outline-none transition focus:border-[#F59E42] focus:ring-2 focus:ring-[#F59E42]/30"
+            className="w-full rounded-md border border-gray-300 bg-white px-3 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-600/30"
             aria-label="Witness Statement"
           ></textarea>
         </div>
         <Button
           type="submit"
-          className="w-full bg-[#F59E42] px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#E76F51] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#F59E42]"
+          className="w-full bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-600"
           ariaLabel="Add Witness"
         >
           Add Witness

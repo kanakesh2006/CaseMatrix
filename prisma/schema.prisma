@@ -11,42 +11,73 @@ datasource db {
 }
 
 model User {
-  id             String   @id @default(uuid())
-  email          String   @unique
-  passwordHash   String
-  role           String
-  specialization String? // for lawyers
-  appointedCases Case[]  @relation("LawyerCases")
-  cases          Case[]  @relation("UserCases")
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         String
+
+  cases          Case[] @relation("UserCases")
+  appointedCases Case[] @relation("LawyerCases")
+
+  lawyer Lawyer?
+}
+
+model Lawyer {
+  userId         String @id
+  specialization String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Case {
   id          String   @id @default(uuid())
   title       String
-  status      String
   date        DateTime
   description String?
-  user        User     @relation("UserCases", fields: [userId], references: [id])
-  userId      String
-  lawyer      User?    @relation("LawyerCases", fields: [lawyerId], references: [id])
-  lawyerId    String?
-  evidence    Evidence[]
-  witnesses   Witness[]
+
+  userId   String
+  user     User @relation("UserCases", fields: [userId], references: [id])
+
+  lawyerId String?
+  lawyer   User? @relation("LawyerCases", fields: [lawyerId], references: [id])
+
+  statusId String
+  status   CaseStatus @relation(fields: [statusId], references: [id])
+
+  evidence  Evidence[]
+  witnesses Witness[]
+}
+
+model CaseStatus {
+  id    String @id @default(uuid())
+  name  String
+
+  cases Case[]
 }
 
 model Evidence {
   id        String   @id @default(uuid())
-  case      Case     @relation(fields: [caseId], references: [id])
   caseId    String
+  case      Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
   name      String
-  type      String
   uploaded  DateTime
+
+  typeId String
+  type   EvidenceType @relation(fields: [typeId], references: [id])
+}
+
+model EvidenceType {
+  id   String @id @default(uuid())
+  name String
+
+  evidence Evidence[]
 }
 
 model Witness {
   id        String   @id @default(uuid())
-  case      Case     @relation(fields: [caseId], references: [id])
   caseId    String
+  case      Case     @relation(fields: [caseId], references: [id], onDelete: Cascade)
   name      String
   statement String
 }

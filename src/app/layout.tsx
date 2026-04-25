@@ -1,8 +1,9 @@
 import "../styles/globals.css";
-import Navbar from "../components/layout/Navbar";
-import Sidebar from "../components/layout/Sidebar";
-import MobileSidebar from "@/components/layout/MobileSidebar";
+import ClientLayout from "@/components/layout/ClientLayout";
 import { Providers } from "@/context/Providers";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "CaseMatrixDB",
@@ -15,24 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className="bg-gray-50 text-gray-800">
+    <html lang="en" className={inter.className}>
+      <body className="bg-zinc-50 text-zinc-900 selection:bg-blue-100 selection:text-blue-900">
         <Providers>
-          <div className="flex min-h-screen overflow-hidden">
-            {/* Sidebar */}
-            <aside className="hidden md:block w-60 shrink-0 border-r border-gray-200 bg-white">
-              <Sidebar />
-            </aside>
-            <div className="flex flex-1 flex-col">
-              <header className="sticky top-0 z-50 bg-white shadow-sm">
-                <Navbar />
-              </header>
-              <MobileSidebar />
-              <main className="flex-1 p-6">
-                {children}
-              </main>
-            </div>
-          </div>
+          <ClientLayout>{children}</ClientLayout>
         </Providers>
       </body>
     </html>

@@ -72,7 +72,7 @@ const EvidenceForm: React.FC<EvidenceFormProps> = ({ caseId }) => {
         />
       )}
       <form onSubmit={handleSubmit} className="rounded-xl bg-white p-6 shadow ring-1 ring-gray-100">
-        <h2 className="mb-4 text-lg font-semibold text-[#A21CAF]">Add Evidence</h2>
+        <h2 className="mb-4 text-lg font-semibold text-blue-600">Add Evidence</h2>
 
         {/* Evidence Name */}
         <Input
@@ -93,7 +93,7 @@ const EvidenceForm: React.FC<EvidenceFormProps> = ({ caseId }) => {
             name="type"
             value={formData.type}
             onChange={handleChange}
-            className="w-full rounded-md border border-gray-300 bg-white px-3 py-3 text-sm outline-none transition focus:border-[#A21CAF] focus:ring-2 focus:ring-[#A21CAF]/30"
+            className="w-full rounded-md border border-gray-300 bg-white px-3 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-600/30"
             aria-label="Type"
           >
             <option value="">Select Type</option>
@@ -130,7 +130,7 @@ const EvidenceForm: React.FC<EvidenceFormProps> = ({ caseId }) => {
         {/* Save Button */}
         <Button
           type="submit"
-          className="w-full bg-[#A21CAF] px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-[#86198F] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#A21CAF]"
+          className="w-full bg-blue-600 px-4 py-3 text-sm font-extrabold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-600"
           ariaLabel="Upload Evidence"
         >
           Upload Evidence
